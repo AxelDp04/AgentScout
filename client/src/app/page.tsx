@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { Search, Brain, TrendingUp, Globe, Loader2, CheckCircle, AlertTriangle, Zap, Download, Instagram, Linkedin } from 'lucide-react';
+import { Search, Brain, TrendingUp, Globe, Loader2, CheckCircle, AlertTriangle, Zap, Download, Instagram } from 'lucide-react';
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
 import ReactMarkdown from 'react-markdown';
@@ -260,7 +260,7 @@ const LoadingAnimation = () => (
         color: 'from-emerald-500 to-teal-600'
       },
       {
-        title: 'Conclusión Pro',
+        title: 'Conclusión',
         icon: <CheckCircle className="w-5 h-5" />,
         content: conclusionText,
         color: 'from-purple-500 to-pink-600'
@@ -470,15 +470,6 @@ const LoadingAnimation = () => (
             aria-label="Instagram"
           >
             <Instagram className="w-5 h-5" />
-          </a>
-          <a
-            href="https://www.linkedin.com/in/axel-perez-a28016316/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-slate-500 hover:text-cyan-200 transition-colors duration-200"
-            aria-label="LinkedIn"
-          >
-            <Linkedin className="w-5 h-5" />
           </a>
         </div>
       </div>
