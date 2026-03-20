@@ -302,31 +302,44 @@ const LoadingAnimation = () => (
     const resumenText =
       extractByNumberedHeadings(
         sourceText,
-        /^\s*(?:1\.\s*)?(?:\*\*\s*)?Resumen\s+Ejecutivo(?:\s*\*\*)?/i,
-        /^\s*(?:2\.\s*)?(?:\*\*\s*)?Tendencias\s+Clave(?:\s*\*\*)?/i
+        /^\s*(?:1\.\s*)?(?:\*\*\s*)?Análisis\s+Estratégico(?:\s*\*\*)?/i,
+        /^\s*(?:2\.\s*)?(?:\*\*\s*)?Tabla\s+de\s+Inversión(?:\s*\*\*)?/i
       ) || resumenFallback;
 
     const inversionText =
       extractByNumberedHeadings(
         sourceText,
-        /^\s*(?:2\.\s*)?(?:\*\*\s*)?Análisis\s+de\s+Inversión(?:\s*\*\*)?/i,
+        /^\s*(?:2\.\s*)?(?:\*\*\s*)?Tabla\s+de\s+Inversión(?:\s*\*\*)?/i,
+        /^\s*(?:3\.\s*)?(?:\*\*\s*)?Conclusión\s+Pro(?:\s*\*\*)?/i
+      );
+
+    const conclusionText =
+      extractByNumberedHeadings(
+        sourceText,
+        /^\s*(?:3\.\s*)?(?:\*\*\s*)?Conclusión\s+Pro(?:\s*\*\*)?/i,
         null
       );
 
     const sections = [
       {
-        title: 'Impacto Estratégico',
+        title: 'Análisis Estratégico',
         icon: <Brain className="w-5 h-5" />,
-        content: resumenText || 'Análisis resumido listo.',
+        content: resumenText,
         color: 'from-blue-500 to-purple-600'
       },
       {
-        title: 'Análisis de Inversión',
+        title: 'Tabla de Inversión',
         icon: <TrendingUp className="w-5 h-5" />,
-        content: inversionText || 'Tabla de ROI e inversión disponible.',
+        content: inversionText,
         color: 'from-emerald-500 to-teal-600'
+      },
+      {
+        title: 'Conclusión Pro',
+        icon: <CheckCircle className="w-5 h-5" />,
+        content: conclusionText,
+        color: 'from-purple-500 to-pink-600'
       }
-    ];
+    ].filter(section => section.content && section.content.trim().length > 0);
 
     return (
     <div className="space-y-6" id="results-content">
