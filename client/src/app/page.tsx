@@ -164,13 +164,19 @@ export default function Home() {
           console.log('Enviando solicitud a:', url);
           console.log('Datos enviados:', { query, depth: 'standard' });
 
+          const controller = new AbortController();
+          const timeoutId = setTimeout(() => controller.abort(), 120000); // 120 segundos
+
           const response = await fetch(url, {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
             },
             body: JSON.stringify({ query, depth: 'standard' }),
+            signal: controller.signal
           });
+          
+          clearTimeout(timeoutId);
 
           console.log('Respuesta recibida:', response.status, response.statusText);
 
