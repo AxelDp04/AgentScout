@@ -60,6 +60,22 @@ async def root():
 async def test_route():
     return {"status": "ok"}
 
+@app.get("/api/diag/env")
+async def diag_env():
+    """
+    Endpoint temporal de diagnóstico para verificar que las llaves existan. 
+    NO DEVUELVE VALORES, SOLO NOMBRES.
+    """
+    keys = list(os.environ.keys())
+    # Filtrar solo cosas interesantes
+    found = [k for k in keys if any(x in k for x in ["KEY", "PORT", "PYTHON", "TAVILY", "GROQ"])]
+    return {
+        "detected_keys": found,
+        "count": len(found),
+        "cwd": os.getcwd(),
+        "files_in_server": os.listdir(".")
+    }
+
 @app.post("/api/research", response_model=MarketResearchResponse)
 async def market_research(request: MarketResearchRequest):
     """
