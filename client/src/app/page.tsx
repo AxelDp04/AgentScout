@@ -299,7 +299,7 @@ const LoadingAnimation = () => (
         sourceText,
         /^\s*(?:[#*1\.\s-]*)+Análisis\s+Estratégico/i,
         /^\s*(?:[#*2\.\s-]*)+Tabla\s+de\s+Inversión/i
-      ) || resumenFallback;
+      );
 
     const inversionText =
       extractByNumberedHeadings(
