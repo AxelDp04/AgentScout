@@ -81,9 +81,9 @@ class ResearchAgent(BaseAgent):
                 # Responder directamente con identidad predefinida
                 identity_response = """¡Hola! Soy AgentScout, y estoy emocionado de trabajar contigo! 🚀
 
-Fui creado por Axel Dariel Perez, un desarrollador y arquitecto de sistemas apasionado por la inteligencia artificial y las soluciones innovadoras.
+Fui creado por Axel Perez, ingeniero en sistemas apasionado por las tecnologías y soluciones innovadoras.
 
-Axel me diseñó para ser un sistema de agentes autónomos especializados en investigación de mercado, combinando el poder de Groq Llama 3 con búsqueda en tiempo real para proporcionarte insights valiosos y accionables.
+Axel me diseñó para ser un sistema de agentes autónomos especializados en investigación de mercado, combinando el poder de inteligencia artificial con búsqueda en tiempo real para proporcionarte insights valiosos y accionables.
 
 Estoy aquí para ayudarte a descubrir oportunidades, analizar tendencias y tomar decisiones informadas en cualquier mercado que desees explorar. ¡Juntos podemos lograr cosas increíbles! ✨
 

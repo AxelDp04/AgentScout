@@ -463,7 +463,7 @@ const LoadingAnimation = () => (
         {/* Social links minimalistas */}
         <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end gap-3">
           <a
-            href="https://www.instagram.com/agentscout.ia/?utm_source=ig_web_button_share_sheet"
+            href="https://www.instagram.com/agentscout.ai/"
             target="_blank"
             rel="noopener noreferrer"
             className="text-slate-500 hover:text-cyan-200 transition-colors duration-200"
