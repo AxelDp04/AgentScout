@@ -10,6 +10,9 @@ import remarkGfm from 'remark-gfm';
 interface ResearchResult {
   query: string;
   analysis: string;
+  resumen?: string;
+  tabla?: string;
+  conclusion?: string;
   insights: string[];
   timestamp: string;
   metadata?: {
