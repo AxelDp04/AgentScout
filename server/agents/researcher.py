@@ -26,11 +26,11 @@ class ResearchAgent(BaseAgent):
         print(f"VERIFICACION_LLM: {groq_key[:10]}... | Modelo solicitado: llama-3.3-70b-versatile")
         self.llm = ChatGroq(
             model="llama-3.3-70b-versatile",
-            temperature=0.1,  # Reducido para máxima precisión
-            max_tokens=4096,  # Evita que el reporte se corte a la mitad
+            temperature=0.1,  
+            max_tokens=1000,  # Reportes rápidos
             model_kwargs={
-                "frequency_penalty": 0.5, # Penaliza la repetición de palabras/frases
-                "presence_penalty": 0.3   # Incentiva hablar de nuevos temas
+                "frequency_penalty": 0.5,
+                "presence_penalty": 0.3
             },
             groq_api_key=groq_key
         )
@@ -40,31 +40,22 @@ class ResearchAgent(BaseAgent):
              raise ValueError("Falta TAVILY_API_KEY en las variables de entorno")
              
         self.tavily_client = TavilyClient(api_key=tavily_key)
-        # Template para el prompt de investigación
+        # Template para el prompt de investigación simplificado
         self.research_prompt = ChatPromptTemplate.from_messages([
-            ("system", """ERES UN ANALISTA FINANCIERO SENIOR DE ÉLITE especializado en mercados emergentes y estrategia inmobiliaria. 
-            Tu misión es generar reportes de PROFUNDIDAD ACADÉMICA, VALOR EMPRESARIAL y PRECISIÓN MATEMÁTICA. No acepto respuestas genéricas, superficiales ni perezosas. 
+            ("system", """ERES UN ANALISTA FINANCIERO EXPRESS. Tu misión es ser DIRECTO y RÁPIDO.
+            No escribas más de 3 párrafos en total. Prohibido repetir información.
 
-            REGLAS CRÍTICAS DE EJECUCIÓN (EL INCUMPLIMIENTO INVALIDA TU TRABAJO):
-            1. DENSIDAD DE ÉLITE: Cada sección (# y ##) DEBE tener al menos 200 palabras de análisis real. Está PROHIBIDO REPETIR párrafos o ideas de secciones anteriores. Si detecto repetición semántica, el reporte será rechazado.
-            2. TABLA FINANCIERA OBLIGATORIA: En la sección 'Insights de Mercado y Tabla Comparativa', DEBES generar una tabla Markdown (usando el formato | Columna |) que contenga AL MENOS 5 FILAS DE DATOS REALES (ej: Miches, Las Terrenas, Punta Cana, Piantini, Naco). La tabla es el corazón del reporte.
-            3. COMPARATIVA ESTRATÉGICA: Compara activamente el precio por metro cuadrado, la plusvalía anual estimada y el impacto de la Ley de Confotur en diferentes zonas.
-            4. ANÁLISIS DE RIESGOS SIN CORTESÍA: Analiza obligatoriamente: Inflación, Tasas de interés del Banco Central, volatilidad de insumos y riesgos regulatorios. No acepto 'no hay riesgos'.
-            5. ESPECIFICIDAD LOCAL: Integra obligatoriamente datos sobre Fideicomisos, incentivos fiscales y normativas del CODIA.
-            6. FORMATO: Usa negritas para cifras y datos críticos. Estructura con listas, pero sin sacrificar la densidad de palabras exigida.
+            REGLAS CRÍTICAS:
+            1. SÍNTESIS: Máximo 2 párrafos de análisis estratégico.
+            2. TABLA MINI: Genera una tabla Markdown con EXACTAMENTE 3 FILAS (Inversión, ROI Estimado, Tiempo de Recuperación).
+            3. CERO REPETICIÓN: Si lo dijiste en el primer párrafo, no lo pongas en la tabla.
 
-            ESTRUCTURA DEL REPORTE (USA ESTOS TÍTULOS EXACTOS):
-            1. Resumen Ejecutivo de Impacto Estratégico
-            2. Análisis del Macro-entorno y Tendencias Regionales
-            3. Insights de Mercado y Tabla Comparativa
-            4. Oportunidades de Inversión y Modelos de Negocio
-            5. Análisis de Riesgos Críticos y Estrategias de Mitigación
-
-            IMPORTANTE: Si te preguntan por tu origen, responde: 'Fui creado por Axel Dariel Perez, un arquitecto de sistemas enfocado en inteligencia artificial estratégica.'
+            ESTRUCTURA DEL REPORTE:
+            1. Resumen Ejecutivo (Directo al grano)
+            2. Análisis de Inversión y Tabla
             
-            IDIOMA: Responde exclusivamente en ESPAÑOL formal y técnico.
-            """),
-            ("human", "Analiza profundamente este mercado bajo estándares de consultoría de élite: {query}")
+            IDIOMA: ESPAÑOL técnico."""),
+            ("human", "Analiza rápido este mercado: {query}")
         ])
 
     async def execute(self, query: str, **kwargs) -> AgentResult:
