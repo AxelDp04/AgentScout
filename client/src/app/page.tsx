@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useRef } from 'react';
+import { useState } from 'react';
 import { Search, Brain, TrendingUp, Globe, Loader2, CheckCircle, AlertTriangle, Zap, Download, Instagram, Linkedin } from 'lucide-react';
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
@@ -57,38 +57,7 @@ export default function Home() {
   const [loadingStage, setLoadingStage] = useState('');
   const [result, setResult] = useState<ResearchResult | null>(null);
   const [error, setError] = useState<string | null>(null);
-  const [displayedText, setDisplayedText] = useState('');
-  const [isTyping, setIsTyping] = useState(false);
-  const typewriterRef = useRef<NodeJS.Timeout | null>(null);
 
-  // Efecto Typewriter
-  useEffect(() => {
-    if (result?.analysis && !isTyping) {
-      setIsTyping(true);
-      setDisplayedText('');
-      
-      const text = result.analysis;
-      let index = 0;
-      
-      const typeNextChar = () => {
-        if (index < text.length) {
-          setDisplayedText(text.slice(0, index + 1));
-          index++;
-          typewriterRef.current = setTimeout(typeNextChar, 15);
-        } else {
-          setIsTyping(false);
-        }
-      };
-      
-      typeNextChar();
-    }
-    
-    return () => {
-      if (typewriterRef.current) {
-        clearTimeout(typewriterRef.current);
-      }
-    };
-  }, [result?.analysis, isTyping]);
 
   const downloadPDF = async () => {
     if (!result) return;
@@ -365,9 +334,7 @@ const LoadingAnimation = () => (
               >
                 {normalizeMarkdownBold(section.content)}
               </ReactMarkdown>
-              {isTyping && (
-                <span className="inline-block w-2 h-5 bg-emerald-400/60 ml-1 opacity-80 rounded-sm"></span>
-              )}
+            
             </div>
           </div>
         )})}
