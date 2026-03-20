@@ -35,7 +35,8 @@ class ResearchAgent(BaseAgent):
              raise ValueError("Falta TAVILY_API_KEY en las variables de entorno")
              
         self.tavily_client = TavilyClient(api_key=tavily_key)
-        
+        # Template para el prompt de investigación
+        self.research_prompt = ChatPromptTemplate.from_messages([
             ("system", """Eres un Consultor Senior de Estrategia Inmobiliaria y Análisis de Mercados Emergentes de élite. 
             Tu misión es generar reportes de PROFUNDIDAD ACADÉMICA y VALOR EMPRESARIAL. No acepto respuestas genéricas, superficiales ni repetitivas. 
 
