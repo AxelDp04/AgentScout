@@ -51,8 +51,9 @@ class ResearchAgent(BaseAgent):
             3. CERO REPETICIÓN: Si lo dijiste en el primer párrafo, no lo pongas en la tabla.
 
             ESTRUCTURA DEL REPORTE:
-            1. Resumen Ejecutivo (Directo al grano)
-            2. Análisis de Inversión y Tabla
+            1. Análisis Estratégico (Breve y potente)
+            2. Tabla de Inversión (3 filas)
+            3. Conclusión Pro (Una sola frase de impacto)
             
             IDIOMA: ESPAÑOL técnico."""),
             ("human", "Analiza rápido este mercado: {query}")
