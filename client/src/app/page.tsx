@@ -150,16 +150,11 @@ export default function Home() {
     setTimeout(() => setLoadingStage(loadingMessages[2]), 3000);
     
     try {
-      // URL del backend inyectada por entorno (Vercel/Render).
-      // Debe apuntar al endpoint completo: /api/research
-      const backendFromEnv = process.env.NEXT_PUBLIC_API_URL;
-      const backendCandidates = backendFromEnv
-        ? [backendFromEnv]
-        : [
-            'http://localhost:8000/api/research',
-            // Fallback por compatibilidad de loopback/hosts.
-            'http://127.0.0.1:8000/api/research',
-          ];
+      // URL del backend inyectada forzosamente a Railway
+      // (Ignoramos Vercel env settings porque aún inyectan la URL vieja de Render)
+      const backendCandidates = [
+        'https://agentscout-api-production-78e0.up.railway.app/api/research',
+      ];
 
       let lastError: unknown = null;
 
