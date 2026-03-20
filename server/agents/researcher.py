@@ -13,15 +13,28 @@ class ResearchAgent(BaseAgent):
             description="Agente de investigación que utiliza Groq Llama 3 para analizar mercados"
         )
         
+        # Verificar llaves (debug)
+        groq_key = os.environ.get("GROQ_API_KEY")
+        tavily_key = os.environ.get("TAVILY_API_KEY")
+        
+        print(f"DEBUG: GROQ_API_KEY presente: {bool(groq_key)}")
+        print(f"DEBUG: TAVILY_API_KEY presente: {bool(tavily_key)}")
+        
+        if not groq_key:
+            raise ValueError("Falta GROQ_API_KEY en las variables de entorno")
+            
         # Inicializar el modelo de Groq con Llama 3
         self.llm = ChatGroq(
             model="llama-3.1-8b-instant",
             temperature=0.7,
-            groq_api_key=os.getenv("GROQ_API_KEY")
+            groq_api_key=groq_key
         )
         
         # Inicializar cliente de Tavily para búsqueda en tiempo real
-        self.tavily_client = TavilyClient(api_key=os.getenv("TAVILY_API_KEY"))
+        if not tavily_key:
+             raise ValueError("Falta TAVILY_API_KEY en las variables de entorno")
+             
+        self.tavily_client = TavilyClient(api_key=tavily_key)
         
         # Template para el prompt de investigación
         self.research_prompt = ChatPromptTemplate.from_messages([
