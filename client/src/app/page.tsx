@@ -346,7 +346,7 @@ const LoadingAnimation = () => (
             <p className="text-sm md:text-base text-[#9ca3af]">Query: {data.query}</p>
           </div>
           <div className="text-left md:text-right text-sm md:text-base">
-            <p className="text-[#9ca3af]">Modelo: {data.metadata?.model || data.metadata?.llm || 'llama-3.3-70b-versatile'}</p>
+            <p className="text-[#9ca3af]">Modelo: {data.metadata?.model || 'llama-3.3-70b-versatile'}</p>
             <p className="text-[#9ca3af]">Proveedor: {data.metadata?.provider || 'Groq'}</p>
             {data.metadata?.search_engine && (
               <p className="text-[#9ca3af]">Búsqueda: {data.metadata.search_engine}</p>
