@@ -269,11 +269,6 @@ const LoadingAnimation = () => (
       );
     }
 
-    const fallbackInsights = Array.isArray(data.insights) ? data.insights : [];
-    const resumenFallback = fallbackInsights.slice(0, 2).join('\n').trim();
-    const oportunidadesFallback = fallbackInsights.filter((i) => /oportun/i.test(i)).join('\n').trim();
-    const riesgosFallback = fallbackInsights.filter((i) => /riesg/i.test(i)).join('\n').trim();
-
     const sourceText = (displayedText && displayedText.trim().length > 0 ? displayedText : data.analysis) || '';
 
     const extractByNumberedHeadings = (
@@ -304,7 +299,7 @@ const LoadingAnimation = () => (
         sourceText,
         /^\s*(?:1\.\s*)?(?:\*\*\s*)?Análisis\s+Estratégico(?:\s*\*\*)?/i,
         /^\s*(?:2\.\s*)?(?:\*\*\s*)?Tabla\s+de\s+Inversión(?:\s*\*\*)?/i
-      ) || resumenFallback;
+      );
 
     const inversionText =
       extractByNumberedHeadings(
@@ -415,63 +410,7 @@ const LoadingAnimation = () => (
           </div>
         )})}
       </div>
-
-        {/* Insights clave estáticos */}
-        {data.insights && data.insights.length > 0 && (
-          <div className="bg-[#17191e] rounded-2xl p-6 border border-white/5">
-            <h4 className="text-lg font-semibold text-[#ffffff] mb-4 flex items-center relative z-10">
-              <CheckCircle className="w-5 h-5 mr-2 text-emerald-300" />
-              Insights Clave
-            </h4>
-            <div className="space-y-2 relative z-10">
-              {data.insights.map((insight, index) => (
-                <div
-                  key={index}
-                  className="flex items-start rounded-xl border border-white/5 bg-[#0f131a] p-4"
-                >
-                  <div className="w-2 h-2 bg-emerald-400 rounded-full mt-2 mr-3 flex-shrink-0" />
-                  <ReactMarkdown
-                    remarkPlugins={[remarkGfm]}
-                    skipHtml
-                    components={{
-                      p: ({ children }) => (
-                        <p className="text-[#9ca3af] text-sm leading-relaxed tracking-[0.01em] mb-3 last:mb-0 px-1 py-1.5">
-                          {children}
-                        </p>
-                      ),
-                      strong: ({ children }) => (
-                        <strong className="text-[#ffffff] font-bold">{children}</strong>
-                      ),
-                      ul: ({ children }) => (
-                        <ul className="list-disc pl-5 text-[#9ca3af] space-y-1 mb-3">
-                          {children}
-                        </ul>
-                      ),
-                      ol: ({ children }) => (
-                        <ol className="list-decimal pl-5 text-[#9ca3af] space-y-1 mb-3">
-                          {children}
-                        </ol>
-                      ),
-                      li: ({ children }) => <li className="text-[#9ca3af]">{children}</li>,
-                      h1: ({ children }) => (
-                        <h5 className="text-[#ffffff] font-semibold mb-2">{children}</h5>
-                      ),
-                      h2: ({ children }) => (
-                        <h5 className="text-[#ffffff] font-semibold mb-2">{children}</h5>
-                      ),
-                      h3: ({ children }) => (
-                        <h5 className="text-[#ffffff] font-semibold mb-2">{children}</h5>
-                      ),
-                    }}
-                  >
-                    {normalizeMarkdownBold(insight)}
-                  </ReactMarkdown>
-                </div>
-              ))}
-            </div>
-          </div>
-        )}
-      </div>
+    </div>
     );
   };
 
