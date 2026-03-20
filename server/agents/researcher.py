@@ -125,6 +125,10 @@ Estoy aquí para ayudarte a descubrir oportunidades, analizar tendencias y tomar
             
             response = await self.llm.ainvoke(formatted_prompt)
             
+            print("--- RESPUESTA CRUDA DE GROQ ---")
+            print(response.content)
+            print("-------------------------------")
+            
             # Estructurar los resultados
             research_data = {
                 "query": query,
