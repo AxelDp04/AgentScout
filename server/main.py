@@ -7,6 +7,12 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
+# DEBUG: Mostrar qué variables de entorno detecta el sistema (solo las llaves)
+print("DEBUG: Listando llaves de variables de entorno detectadas:")
+for key in os.environ.keys():
+    if "KEY" in key or "PORT" in key or "PYTHON" in key:
+        print(f"DEBUG: Variable encontrada: {key}")
+
 from starlette.requests import Request
 from starlette.responses import Response
 import time
