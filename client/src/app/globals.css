@@ -27,7 +27,19 @@ body {
     text-wrap: balance;
   }
 
-  .title-shadow {
-    text-shadow: none;
+  /* Animación de pulso suave para el logo */
+  @keyframes pulse-soft {
+    0%, 100% {
+      opacity: 1;
+      transform: scale(1);
+    }
+    50% {
+      opacity: 0.8;
+      transform: scale(0.98);
+    }
+  }
+
+  .animate-pulse-slow {
+    animation: pulse-soft 3s ease-in-out infinite;
   }
 }
