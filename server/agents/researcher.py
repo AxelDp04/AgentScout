@@ -134,13 +134,22 @@ Estoy aquí para ayudarte a descubrir oportunidades, analizar tendencias y tomar
             tabla = ""
             conclusion = ""
             try:
-                content_json = json.loads(response.content)
+                # Limpiar posibles espacios o saltos de línea al inicio/final
+                clean_content = response.content.strip()
+                # Si el modelo añadió bloques de código markdown ```json ... ```, quitarlos
+                if clean_content.startswith("```json"):
+                    clean_content = clean_content.split("```json")[1].split("```")[0].strip()
+                elif clean_content.startswith("```"):
+                    clean_content = clean_content.split("```")[1].split("```")[0].strip()
+                
+                content_json = json.loads(clean_content)
                 resumen = content_json.get("resumen", "")
                 tabla = content_json.get("tabla", "")
                 conclusion = content_json.get("conclusion", "")
-            except json.JSONDecodeError:
+            except (json.JSONDecodeError, Exception) as e:
+                print(f"Error parseando JSON de Groq: {e}")
                 # Fallback por si acaso falló el JSON mode
-                resumen = response.content # If parsing fails, treat the whole content as the summary
+                resumen = response.content
                 tabla = ""
                 conclusion = ""
 
