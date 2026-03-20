@@ -26,19 +26,17 @@ yarn-debug.log*
 yarn-error.log*
 
 # local env files
+.env*.local
+
+# env files (producción / general)
 .env
 .env.*
+!.env.example
 
-# Never commit the backend secret env
-server/.env
 
-# nested client (frontend) - avoid adding its own git/build artifacts
-/client/.git/
-/client/node_modules/
-/client/.next/
-/client/out/
-/client/.env*
+# vercel
+.vercel
 
 # typescript
 *.tsbuildinfo
-
+next-env.d.ts

@@ -1,0 +1,33 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: #0b0e14;
+  --foreground: #9ca3af;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0b0e14;
+    --foreground: #9ca3af;
+  }
+}
+
+body {
+  color: var(--foreground);
+  background: var(--background);
+  font-family: Inter, system-ui, -apple-system, "Segoe UI", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .title-shadow {
+    text-shadow: none;
+  }
+}
