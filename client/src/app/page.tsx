@@ -294,26 +294,9 @@ const LoadingAnimation = () => (
 
     // Backend formatea así: 1. Resumen Ejecutivo, 2. Tendencias Clave, 3. Oportunidades Identificadas...
     // El frontend antes intentaba partir con '**Encabezado**', lo cual no siempre coincide.
-    const resumenText =
-      extractByNumberedHeadings(
-        sourceText,
-        /\[{1,2}ANALISIS\s+ESTRATEGICO\]{1,2}/i,
-        /\[{1,2}TABLA\s+DE\s+INVERSION\]{1,2}/i
-      );
-
-    const inversionText =
-      extractByNumberedHeadings(
-        sourceText,
-        /\[{1,2}TABLA\s+DE\s+INVERSION\]{1,2}/i,
-        /\[{1,2}CONCLUSION\s+PRO\]{1,2}/i
-      );
-
-    const conclusionText =
-      extractByNumberedHeadings(
-        sourceText,
-        /\[\[CONCLUSION\s+PRO\]\]/i,
-        null
-      );
+    const resumenText = data.resumen || '';
+    const inversionText = data.tabla || '';
+    const conclusionText = data.conclusion || '';
 
     const sections = [
       {

@@ -50,17 +50,15 @@ class ResearchAgent(BaseAgent):
             2. TABLA MINI: Genera una tabla Markdown con EXACTAMENTE 3 FILAS (Inversión, ROI Estimado, Tiempo de Recuperación).
             3. CERO REPETICIÓN: Si lo dijiste en el primer párrafo, no lo pongas en la tabla.
 
-            ESTRUCTURA DEL REPORTE (DEBES USAR ESTOS MARCADORES EXACTOS):
-            [[ANALISIS ESTRATEGICO]]
-            (Tu párrafo de análisis aquí)
+            ESTRUCTURA DEL REPORTE (DEBES RESPONDER EN JSON):
+            {
+                "resumen": "Tu párrafo de análisis estratégico aquí",
+                "tabla": "Tu tabla Markdown de 3 filas aquí",
+                "conclusion": "Tu frase de cierre aquí"
+            }
             
-            [[TABLA DE INVERSION]]
-            (Tu tabla de 3 filas aquí)
-            
-            [[CONCLUSION PRO]]
-            (Tu frase de cierre aquí)
-            
-            IDIOMA: ESPAÑOL técnico."""),
+            IDIOMA: ESPAÑOL técnico.
+            CERO REPETICIÓN: Lo que pongas en 'resumen' no se repite en 'tabla'."""),
             ("human", "Analiza rápido este mercado: {query}")
         ])
 
@@ -131,13 +129,31 @@ Estoy aquí para ayudarte a descubrir oportunidades, analizar tendencias y tomar
             print("-------------------------------")
             
             # Estructurar los resultados
+            import json
+            resumen = ""
+            tabla = ""
+            conclusion = ""
+            try:
+                content_json = json.loads(response.content)
+                resumen = content_json.get("resumen", "")
+                tabla = content_json.get("tabla", "")
+                conclusion = content_json.get("conclusion", "")
+            except json.JSONDecodeError:
+                # Fallback por si acaso falló el JSON mode
+                resumen = response.content # If parsing fails, treat the whole content as the summary
+                tabla = ""
+                conclusion = ""
+
             research_data = {
                 "query": query,
                 "search_results": search_results,
-                "analysis": response.content,
+                "analysis": response.content, # Keep raw analysis for debugging/completeness
+                "resumen": resumen,
+                "tabla": tabla,
+                "conclusion": conclusion,
                 "timestamp": str(self._get_timestamp()),
                 "agent": self.name,
-                "insights": self._extract_insights(response.content)
+                "insights": self._extract_insights(resumen) # Extract insights from the parsed summary
             }
             
             return AgentResult(
