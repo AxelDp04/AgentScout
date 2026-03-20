@@ -7,14 +7,34 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
+from starlette.requests import Request
+from starlette.responses import Response
+import time
+
 app = FastAPI(title="AgentScout API", version="1.0.0")
+
+# Middleware de diagnóstico para ver qué llega al servidor
+@app.middleware("http")
+async def log_requests(request: Request, call_next):
+    start_time = time.time()
+    response = await call_next(request)
+    duration = time.time() - start_time
+    print(f"DEBUG: {request.method} {request.url.path} - Status: {response.status_code} - Duration: {duration:.4f}s")
+    return response
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
-    allow_credentials=False,
+    allow_origins=[
+        "https://agent-scout-azure.vercel.app",
+        "http://localhost:3000",
+        "http://localhost:3001",
+        "http://127.0.0.1:3000",
+        "http://127.0.0.1:3001",
+    ],
+    allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
+    expose_headers=["*"],
 )
 
 class MarketResearchRequest(BaseModel):
