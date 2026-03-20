@@ -11,17 +11,8 @@ app = FastAPI(title="AgentScout API", version="1.0.0")
 
 app.add_middleware(
     CORSMiddleware,
-    # Permite CORS solo para el frontend que se despliega (evita problemas
-    # cuando allow_credentials=True).
-    allow_origins=[
-        "https://agent-scout-azure.vercel.app",
-        # Dev local (por si pruebas desde el navegador)
-        "http://localhost:3000",
-        "http://localhost:3001",
-        "http://127.0.0.1:3000",
-        "http://127.0.0.1:3001",
-    ],
-    allow_credentials=True,
+    allow_origins=["*"],
+    allow_credentials=False,
     allow_methods=["*"],
     allow_headers=["*"],
 )
