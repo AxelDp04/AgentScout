@@ -16,6 +16,7 @@ app = FastAPI(title="AgentScout API", version="1.0.0")
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
+        "https://agentscout-ai.vercel.app",
         "https://agent-scout-azure.vercel.app",
         "http://localhost:3000",
         "http://localhost:3001",
