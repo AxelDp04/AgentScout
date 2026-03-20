@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
-import { Search, Brain, TrendingUp, Globe, Loader2, CheckCircle, AlertTriangle, Lightbulb, Zap, Download, Instagram, Linkedin } from 'lucide-react';
+import { Search, Brain, TrendingUp, Globe, Loader2, CheckCircle, AlertTriangle, Zap, Download, Instagram, Linkedin } from 'lucide-react';
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
 import ReactMarkdown from 'react-markdown';
