@@ -272,31 +272,7 @@ const LoadingAnimation = () => (
       );
     }
 
-    const sourceText = (displayedText && displayedText.trim().length > 0 ? displayedText : data.analysis) || '';
-
-    const extractByNumberedHeadings = (
-      text: string,
-      start: RegExp,
-      end: RegExp | null
-    ): string => {
-      const lines = (text || '').replace(/\r\n/g, '\n').split('\n');
-
-      const startIndex = lines.findIndex((l) => start.test(l));
-      if (startIndex === -1) return '';
-
-      const endIndex = end ? lines.findIndex((l, idx) => idx > startIndex && end.test(l)) : -1;
-
-      const effectiveEndIndex = endIndex === -1 ? lines.length : endIndex;
-      const startLine = lines[startIndex] || '';
-      const startLineContent = startLine.replace(start, '').trim();
-
-      const middleLines = lines.slice(startIndex + 1, effectiveEndIndex).join('\n').trim();
-      const combined = [startLineContent, middleLines].filter(Boolean).join('\n').trim();
-      return combined;
-    };
-
-    // Backend formatea así: 1. Resumen Ejecutivo, 2. Tendencias Clave, 3. Oportunidades Identificadas...
-    // El frontend antes intentaba partir con '**Encabezado**', lo cual no siempre coincide.
+    // Mapeo directo a los campos estructurados del backend
     const resumenText = data.resumen || '';
     const inversionText = data.tabla || '';
     const conclusionText = data.conclusion || '';

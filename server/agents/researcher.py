@@ -136,13 +136,22 @@ Estoy aquí para ayudarte a descubrir oportunidades, analizar tendencias y tomar
             content = response.content
             
             def extract_section(tag_name, text):
-                pattern = f"\\\[\\\[\\\[{tag_name}\\\]\\\]\\\](.*?)(?=\\\[\\\[\\\[|$)"
-                match = re.search(pattern, text, re.DOTALL | re.IGNORECASE)
-                return match.group(1).strip() if match else ""
+                tag = "[[[" + tag_name + "]]]"
+                upper_text = text.upper()
+                upper_tag = tag.upper()
+                start_idx = upper_text.find(upper_tag)
+                if start_idx == -1:
+                    return ""
+                content_start = start_idx + len(upper_tag)
+                next_marker = upper_text.find("[[[", content_start)
+                if next_marker == -1:
+                    return text[content_start:].strip()
+                return text[content_start:next_marker].strip()
 
             resumen = extract_section("RESUMEN", content)
             tabla = extract_section("TABLA", content)
             conclusion = extract_section("CONCLUSION", content)
+
             
             # Si la extracción falla totalmente, usar el contenido como resumen
             if not resumen and not tabla:
