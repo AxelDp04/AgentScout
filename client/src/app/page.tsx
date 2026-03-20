@@ -5,6 +5,7 @@ import { Search, Brain, TrendingUp, Globe, Loader2, CheckCircle, AlertTriangle, 
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
 import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
 
 interface ResearchResult {
   query: string;
@@ -384,6 +385,7 @@ const LoadingAnimation = () => (
               }`}
             >
               <ReactMarkdown
+                remarkPlugins={[remarkGfm]}
                 skipHtml
                 components={{
                   p: ({ children }) => (
@@ -423,6 +425,7 @@ const LoadingAnimation = () => (
                 >
                   <div className="w-2 h-2 bg-emerald-400 rounded-full mt-2 mr-3 flex-shrink-0" />
                   <ReactMarkdown
+                    remarkPlugins={[remarkGfm]}
                     skipHtml
                     components={{
                       p: ({ children }) => (
