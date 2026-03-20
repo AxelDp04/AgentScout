@@ -479,10 +479,9 @@ const LoadingAnimation = () => (
           <div className="flex items-center justify-center mb-6 md:mb-8">
             <div className="relative animate-pulse-slow">
               <img 
-                src="/images/Logo.png" 
+                src="/images/logo-no-bg.png" 
                 alt="AgentScout Logo" 
-                className="w-12 h-12 md:w-16 md:h-16 mr-3 md:mr-4 object-contain mix-blend-screen mix-blend-mode-lighten filter drop-shadow-[0_0_12px_rgba(110,231,183,0.4)]"
-                style={{ mixBlendMode: 'screen' }}
+                className="w-12 h-12 md:w-16 md:h-16 mr-3 md:mr-4 object-contain filter drop-shadow-[0_0_15px_rgba(110,231,183,0.5)]"
               />
               <div className="absolute inset-x-0 bottom-0 h-1/2 bg-emerald-400 blur-3xl opacity-10 rounded-full"></div>
             </div>
@@ -572,10 +571,9 @@ const LoadingAnimation = () => (
           <div className="bg-[#17191e] rounded-xl p-6 border border-white/5">
             <div className="relative z-10">
               <img 
-                src="/images/Logo.png" 
+                src="/images/logo-no-bg.png" 
                 alt="Agentes Autónomos" 
-                className="w-10 h-10 mb-4 object-contain opacity-80"
-                style={{ mixBlendMode: 'screen' }}
+                className="w-10 h-10 mb-4 object-contain opacity-90"
               />
               <h3 className="text-xl font-semibold mb-2 text-[#ffffff]">Agentes Autónomos</h3>
               <p className="text-[#9ca3af] leading-relaxed">

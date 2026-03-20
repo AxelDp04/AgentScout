@@ -17,9 +17,9 @@ export const metadata: Metadata = {
   title: "AgentScout | Inteligencia de Mercado",
   description: "Sistema de Agentes Autónomos para análisis estratégico en tiempo real.",
   icons: {
-    icon: "/images/Logo.png",
-    shortcut: "/images/Logo.png",
-    apple: "/images/Logo.png",
+    icon: "/icon.png",
+    shortcut: "/favicon.ico",
+    apple: "/apple-icon.png",
   },
 };
 
