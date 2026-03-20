@@ -297,21 +297,21 @@ const LoadingAnimation = () => (
     const resumenText =
       extractByNumberedHeadings(
         sourceText,
-        /^\s*(?:1\.\s*)?(?:\*\*\s*)?Análisis\s+Estratégico(?:\s*\*\*)?/i,
-        /^\s*(?:2\.\s*)?(?:\*\*\s*)?Tabla\s+de\s+Inversión(?:\s*\*\*)?/i
-      );
+        /^\s*(?:[#*1\.\s-]*)+Análisis\s+Estratégico/i,
+        /^\s*(?:[#*2\.\s-]*)+Tabla\s+de\s+Inversión/i
+      ) || resumenFallback;
 
     const inversionText =
       extractByNumberedHeadings(
         sourceText,
-        /^\s*(?:2\.\s*)?(?:\*\*\s*)?Tabla\s+de\s+Inversión(?:\s*\*\*)?/i,
-        /^\s*(?:3\.\s*)?(?:\*\*\s*)?Conclusión\s+Pro(?:\s*\*\*)?/i
+        /^\s*(?:[#*2\.\s-]*)+Tabla\s+de\s+Inversión/i,
+        /^\s*(?:[#*3\.\s-]*)+Conclusión\s+Pro/i
       );
 
     const conclusionText =
       extractByNumberedHeadings(
         sourceText,
-        /^\s*(?:3\.\s*)?(?:\*\*\s*)?Conclusión\s+Pro(?:\s*\*\*)?/i,
+        /^\s*(?:[#*3\.\s-]*)+Conclusión\s+Pro/i,
         null
       );
 
