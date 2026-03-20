@@ -26,7 +26,12 @@ class ResearchAgent(BaseAgent):
         print(f"VERIFICACION_LLM: {groq_key[:10]}... | Modelo solicitado: llama-3.3-70b-versatile")
         self.llm = ChatGroq(
             model="llama-3.3-70b-versatile",
-            temperature=0.1,  # Reducido para máxima precisión y seguimiento de reglas
+            temperature=0.1,  # Reducido para máxima precisión
+            max_tokens=4096,  # Evita que el reporte se corte a la mitad
+            model_kwargs={
+                "frequency_penalty": 0.5, # Penaliza la repetición de palabras/frases
+                "presence_penalty": 0.3   # Incentiva hablar de nuevos temas
+            },
             groq_api_key=groq_key
         )
         
