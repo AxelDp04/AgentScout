@@ -488,9 +488,9 @@ const LoadingAnimation = () => (
           <p className="text-lg md:text-2xl text-[#9ca3af] mb-3 font-light tracking-wider" style={{ fontFamily: 'Inter, sans-serif' }}>
             Sistema de Agentes Autónomos
           </p>
-          <p className="text-[#9ca3af] text-lg font-medium opacity-90" style={{ fontFamily: 'Inter, sans-serif' }}>
-            Potenciado por IA para análisis de mercado en tiempo real
-          </p>
+          <p className="text-xl md:text-2xl text-slate-300 max-w-2xl mx-auto leading-relaxed font-light mb-10">
+                  Inteligencia estratégica para decisiones de mercado en tiempo real
+                </p>
         </div>
 
         {/* Barra de búsqueda principal estática */}

@@ -7,26 +7,11 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-# DEBUG: Mostrar qué variables de entorno detecta el sistema (solo las llaves)
-print("DEBUG: Listando llaves de variables de entorno detectadas:")
-for key in os.environ.keys():
-    if "KEY" in key or "PORT" in key or "PYTHON" in key:
-        print(f"DEBUG: Variable encontrada: {key}")
-
 from starlette.requests import Request
 from starlette.responses import Response
 import time
 
 app = FastAPI(title="AgentScout API", version="1.0.0")
-
-# Middleware de diagnóstico para ver qué llega al servidor
-@app.middleware("http")
-async def log_requests(request: Request, call_next):
-    start_time = time.time()
-    response = await call_next(request)
-    duration = time.time() - start_time
-    print(f"DEBUG: {request.method} {request.url.path} - Status: {response.status_code} - Duration: {duration:.4f}s")
-    return response
 
 app.add_middleware(
     CORSMiddleware,
@@ -59,19 +44,6 @@ async def root():
 @app.get("/test")
 async def test_route():
     return {"status": "ok"}
-
-@app.get("/api/diag/env")
-async def diag_env():
-    """
-    Endpoint de diagnóstico TOTAL.
-    """
-    keys = sorted(list(os.environ.keys()))
-    return {
-        "all_keys": keys,
-        "count": len(keys),
-        "cwd": os.getcwd(),
-        "files_in_server": os.listdir(".")
-    }
 
 @app.post("/api/research", response_model=MarketResearchResponse)
 async def market_research(request: MarketResearchRequest):
