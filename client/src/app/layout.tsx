@@ -14,8 +14,11 @@ const geistMono = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "AgentScout | Inteligencia de Mercado",
-  description: "Sistema de Agentes Autónomos para análisis estratégico en tiempo real.",
+  title: "AgentScout | Análisis de Mercado con IA",
+  description: "Busca, analiza y compara cualquier mercado en tiempo real con agentes inteligentes.",
+  verification: {
+    google: "nPeW-sxF1D-RSsaVxaLVd7h9ym_ADh8kFL7q006cFSk",
+  },
   icons: {
     icon: "/icon.png",
     shortcut: "/favicon.ico",
