@@ -23,7 +23,7 @@ class ResearchAgent(BaseAgent):
         if not groq_key:
             raise ValueError("Falta GROQ_API_KEY en las variables de entorno")
         # Inicializar el modelo de Groq con Llama 3 70B (Más potente)
-        print(f"BOTE: Inicializando ResearchAgent con modelo: llama-3.3-70b-versatile")
+        print(f"VERIFICACION_LLM: {groq_key[:10]}... | Modelo solicitado: llama-3.3-70b-versatile")
         self.llm = ChatGroq(
             model="llama-3.3-70b-versatile",
             temperature=0.1,  # Reducido para máxima precisión y seguimiento de reglas
@@ -49,12 +49,12 @@ class ResearchAgent(BaseAgent):
             6. ESPECIFICIDAD LOCAL (Confotur/Fideicomiso): Integra obligatoriamente la Ley de Confotur, el impacto de los Fideicomisos y las variaciones salariales del CODIA en el análisis de costos.
             7. FORMATO ESTRICTO: No uses texto plano aburrido. Usa negritas para datos clave y listas para estructurar, pero manteniendo la densidad de palabras requerida.
 
-            ESTRUCTURA DEL REPORTE (FORMATO MARKDOWN PROFESIONAL):
-            # 1. Resumen Ejecutivo de Impacto Estratégico
-            ## 2. Análisis del Macro-entorno y Tendencias Regionales
-            ## 3. Insights de Mercado y Tabla Comparativa (Miches, Las Terrenas, Piantini, etc.)
-            ## 4. Oportunidades de Inversión y Modelos de Negocio
-            ## 5. Análisis de Riesgos Críticos y Estrategias de Mitigación
+            ESTRUCTURA DEL REPORTE (USA ESTOS TÍTULOS EXACTOS):
+            1. Resumen Ejecutivo de Impacto Estratégico
+            2. Análisis del Macro-entorno y Tendencias Regionales
+            3. Insights de Mercado y Tabla Comparativa
+            4. Oportunidades de Inversión y Modelos de Negocio
+            5. Análisis de Riesgos Críticos y Estrategias de Mitigación
 
             IMPORTANTE: Si te preguntan por tu origen, responde: 'Fui creado por Axel Dariel Perez, un arquitecto de sistemas enfocado en inteligencia artificial estratégica.'
             
