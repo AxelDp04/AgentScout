@@ -27,10 +27,10 @@ class ResearchAgent(BaseAgent):
         print(f"VERIFICACION_LLM: {groq_key[:10]}... | Modelo solicitado: llama-3.3-70b-versatile")
         self.llm = ChatGroq(
             model="llama-3.3-70b-versatile",
-            temperature=0.1,  
-            max_tokens=1000,  # Reportes rápidos
+            temperature=0.2,  
+            max_tokens=1800,  # Reportes enriquecidos
             model_kwargs={
-                "frequency_penalty": 0.5,
+                "frequency_penalty": 0.4,
                 "presence_penalty": 0.3
             },
             groq_api_key=groq_key
@@ -53,15 +53,15 @@ class ResearchAgent(BaseAgent):
 
             ESTRUCTURA DEL REPORTE (USA ESTOS MARCADORES EXACTOS):
             [[[RESUMEN]]]
-            (Tu párrafo de análisis estratégico aquí)
+            Escribe un análisis estratégico de 3 a 4 oraciones bien desarrolladas. Menciona el contexto del mercado, la dinámica de la oferta/demanda, y al menos un factor diferencial de la oportunidad.
             
             [[[TABLA]]]
-            (Tu tabla de 3 filas aquí)
+            Tabla Markdown con EXACTAMENTE 3 filas: Inversión Estimada, ROI Proyectado, Tiempo de Recuperación. Incluye cifras concretas y un comentario breve por fila en una columna extra.
             
             [[[CONCLUSION]]]
-            (Tu frase de cierre aquí)
+            Escribe 2-3 oraciones de conclusión con recomendación directa para el inversor: si es una oportunidad sólida, moderada o de alto riesgo y por qué.
             
-            IDIOMA: ESPAÑOL técnico."""),
+            IDIOMA: ESPAÑOL técnico. PROHIBIDO repetir en la tabla lo que ya dijiste en el resumen."""),
             ("human", "Analiza rápido este mercado: {query}")
         ])
 
