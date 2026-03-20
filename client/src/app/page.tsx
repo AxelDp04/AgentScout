@@ -342,23 +342,23 @@ const LoadingAnimation = () => (
     return (
     <div className="space-y-6" id="results-content">
       {/* Header de resultados estático */}
-      <div className="bg-[#17191e] rounded-2xl p-6 border border-white/5">
-        <div className="flex items-center justify-between relative z-10">
+      <div className="bg-[#17191e] rounded-2xl p-5 md:p-6 border border-white/5">
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 relative z-10">
           <div>
-            <h3 className="text-xl font-semibold text-[#ffffff] mb-2 tracking-wide">Análisis Completado</h3>
-                <p className="text-[#9ca3af]">Query: {data.query}</p>
+            <h3 className="text-lg md:text-xl font-semibold text-[#ffffff] mb-1 md:mb-2 tracking-wide">Análisis Completado</h3>
+            <p className="text-sm md:text-base text-[#9ca3af]">Query: {data.query}</p>
           </div>
-          <div className="text-right">
-                <p className="text-[#9ca3af]">Modelo: {data.metadata?.model || 'N/A'}</p>
-                <p className="text-[#9ca3af]">Proveedor: {data.metadata?.provider || 'N/A'}</p>
-                {data.metadata?.search_engine && (
-                  <p className="text-[#9ca3af]">Búsqueda: {data.metadata.search_engine}</p>
-                )}
-                {/* Botón de descarga PDF */}
-                <button
-                  onClick={downloadPDF}
-                  className="mt-3 px-4 py-2 bg-emerald-500/15 border border-white/5 text-white rounded-lg font-medium hover:bg-emerald-500/20 transition-colors duration-200 flex items-center gap-2 text-sm"
-                >
+          <div className="text-left md:text-right text-sm md:text-base">
+            <p className="text-[#9ca3af]">Modelo: {data.metadata?.model || 'N/A'}</p>
+            <p className="text-[#9ca3af]">Proveedor: {data.metadata?.provider || 'N/A'}</p>
+            {data.metadata?.search_engine && (
+              <p className="text-[#9ca3af]">Búsqueda: {data.metadata.search_engine}</p>
+            )}
+            {/* Botón de descarga PDF */}
+            <button
+              onClick={downloadPDF}
+              className="mt-3 w-full md:w-auto justify-center px-4 py-2 bg-emerald-500/15 border border-white/5 text-white rounded-lg font-medium hover:bg-emerald-500/20 transition-colors duration-200 flex items-center gap-2 text-sm"
+            >
                   <Download className="w-4 h-4" />
                   Descargar PDF
                 </button>
@@ -478,19 +478,19 @@ const LoadingAnimation = () => (
         <div className="absolute inset-0 bg-[#0b0e14]" />
       </div>
 
-      <div className="relative z-10 container mx-auto px-4 py-16">
+      <div className="relative z-10 container mx-auto px-4 py-8 md:py-16">
         {/* Header Premium estático */}
-        <div className="text-center mb-16">
-          <div className="flex items-center justify-center mb-8">
+        <div className="text-center mb-10 md:mb-16">
+          <div className="flex items-center justify-center mb-6 md:mb-8">
             <div className="relative">
-              <Brain className="w-16 h-16 text-emerald-200 mr-4" />
+              <Brain className="w-12 h-12 md:w-16 md:h-16 text-emerald-200 mr-3 md:mr-4" />
               <div className="absolute inset-0 bg-emerald-200 rounded-full opacity-10"></div>
             </div>
-            <h1 className="text-6xl font-semibold text-[#ffffff] tracking-wide" style={{ fontFamily: 'Inter, sans-serif', letterSpacing: '0.05em' }}>
+            <h1 className="text-4xl md:text-6xl font-semibold text-[#ffffff] tracking-wide" style={{ fontFamily: 'Inter, sans-serif', letterSpacing: '0.05em' }}>
               AgentScout
             </h1>
           </div>
-          <p className="text-2xl text-[#9ca3af] mb-3 font-light tracking-wider" style={{ fontFamily: 'Inter, sans-serif' }}>
+          <p className="text-lg md:text-2xl text-[#9ca3af] mb-3 font-light tracking-wider" style={{ fontFamily: 'Inter, sans-serif' }}>
             Sistema de Agentes Autónomos
           </p>
           <p className="text-[#9ca3af] text-lg font-medium opacity-90" style={{ fontFamily: 'Inter, sans-serif' }}>
@@ -500,24 +500,24 @@ const LoadingAnimation = () => (
 
         {/* Barra de búsqueda principal estática */}
         <div className="max-w-2xl mx-auto mb-16">
-          <div className="bg-[#17191e] rounded-2xl p-8 border border-white/5">
-            <label className="block text-lg font-medium mb-4 text-[#9ca3af] relative z-10 tracking-wide">
+          <div className="bg-[#17191e] rounded-2xl p-5 md:p-8 border border-white/5">
+            <label className="block text-base md:text-lg font-medium mb-4 text-[#9ca3af] relative z-10 tracking-wide">
               ¿Qué mercado quieres investigar hoy?
             </label>
-            <div className="flex gap-4 relative z-10">
+            <div className="flex flex-col md:flex-row gap-3 md:gap-4 relative z-10">
               <input
                 type="text"
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
                 onKeyPress={(e) => e.key === 'Enter' && handleSearch()}
                 placeholder="Ej: Últimas tendencias en desarrollo de software con IA..."
-                className="flex-1 px-6 py-4 bg-[#0f131a] border border-white/5 rounded-xl text-[#ffffff] placeholder-[#6b7280] focus:outline-none focus:ring-2 focus:ring-emerald-400/25 focus:border-transparent transition-all duration-200"
+                className="flex-1 w-full px-4 md:px-6 py-3 md:py-4 bg-[#0f131a] border border-white/5 rounded-xl text-[#ffffff] placeholder-[#6b7280] text-sm md:text-base focus:outline-none focus:ring-2 focus:ring-emerald-400/25 focus:border-transparent transition-all duration-200"
                 disabled={isLoading}
               />
               <button
                 onClick={handleSearch}
                 disabled={isLoading || !query.trim()}
-                className="px-8 py-4 bg-emerald-500/15 border border-white/5 text-white rounded-xl font-medium hover:bg-emerald-500/20 transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2 relative z-10"
+                className="w-full md:w-auto px-6 md:px-8 py-3 md:py-4 bg-emerald-500/15 border border-white/5 text-white rounded-xl font-medium hover:bg-emerald-500/20 transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed flex justify-center items-center gap-2 relative z-10"
               >
                 {isLoading ? (
                   <Loader2 className="w-5 h-5" />
