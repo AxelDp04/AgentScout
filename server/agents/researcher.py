@@ -130,25 +130,29 @@ Estoy aquí para ayudarte a descubrir oportunidades, analizar tendencias y tomar
             
             # Estructurar los resultados
             import json
+            import re
+            import json
             resumen = ""
             tabla = ""
             conclusion = ""
             try:
-                # Limpiar posibles espacios o saltos de línea al inicio/final
-                clean_content = response.content.strip()
-                # Si el modelo añadió bloques de código markdown ```json ... ```, quitarlos
-                if clean_content.startswith("```json"):
-                    clean_content = clean_content.split("```json")[1].split("```")[0].strip()
-                elif clean_content.startswith("```"):
-                    clean_content = clean_content.split("```")[1].split("```")[0].strip()
-                
-                content_json = json.loads(clean_content)
-                resumen = content_json.get("resumen", "")
-                tabla = content_json.get("tabla", "")
-                conclusion = content_json.get("conclusion", "")
-            except (json.JSONDecodeError, Exception) as e:
-                print(f"Error parseando JSON de Groq: {e}")
-                # Fallback por si acaso falló el JSON mode
+                # Buscar el primer bloque que parezca un objeto JSON {...}
+                match = re.search(r'\{.*\}', response.content, re.DOTALL)
+                if match:
+                    clean_json = match.group()
+                    content_json = json.loads(clean_json)
+                    if isinstance(content_json, dict):
+                        # Limpiar los valores de posibles nulos o tipos incorrectos
+                        resumen = str(content_json.get("resumen", ""))
+                        tabla = str(content_json.get("tabla", ""))
+                        conclusion = str(content_json.get("conclusion", ""))
+                    else:
+                        resumen = response.content
+                else:
+                    # Si no hay llaves, tratar como texto plano
+                    resumen = response.content
+            except Exception as e:
+                print(f"Error parseando JSON robusto: {e}")
                 resumen = response.content
                 tabla = ""
                 conclusion = ""
