@@ -51,13 +51,13 @@ class ResearchAgent(BaseAgent):
             3. CERO REPETICIÓN: Si lo dijiste en el primer párrafo, no lo pongas en la tabla.
 
             ESTRUCTURA DEL REPORTE (DEBES USAR ESTOS MARCADORES EXACTOS):
-            [[ANÁLISIS ESTRATÉGICO]]
+            [[ANALISIS ESTRATEGICO]]
             (Tu párrafo de análisis aquí)
             
-            [[TABLA DE INVERSIÓN]]
+            [[TABLA DE INVERSION]]
             (Tu tabla de 3 filas aquí)
             
-            [[CONCLUSIÓN PRO]]
+            [[CONCLUSION PRO]]
             (Tu frase de cierre aquí)
             
             IDIOMA: ESPAÑOL técnico."""),

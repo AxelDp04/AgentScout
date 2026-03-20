@@ -297,21 +297,21 @@ const LoadingAnimation = () => (
     const resumenText =
       extractByNumberedHeadings(
         sourceText,
-        /\[\[ANÁLISIS\s+ESTRATÉGICO\]\]/i,
-        /\[\[TABLA\s+DE\s+INVERSIÓN\]\]/i
+        /\[{1,2}ANALISIS\s+ESTRATEGICO\]{1,2}/i,
+        /\[{1,2}TABLA\s+DE\s+INVERSION\]{1,2}/i
       );
 
     const inversionText =
       extractByNumberedHeadings(
         sourceText,
-        /\[\[TABLA\s+DE\s+INVERSIÓN\]\]/i,
-        /\[\[CONCLUSIÓN\s+PRO\]\]/i
+        /\[{1,2}TABLA\s+DE\s+INVERSION\]{1,2}/i,
+        /\[{1,2}CONCLUSION\s+PRO\]{1,2}/i
       );
 
     const conclusionText =
       extractByNumberedHeadings(
         sourceText,
-        /\[\[CONCLUSIÓN\s+PRO\]\]/i,
+        /\[\[CONCLUSION\s+PRO\]\]/i,
         null
       );
 
@@ -346,8 +346,8 @@ const LoadingAnimation = () => (
             <p className="text-sm md:text-base text-[#9ca3af]">Query: {data.query}</p>
           </div>
           <div className="text-left md:text-right text-sm md:text-base">
-            <p className="text-[#9ca3af]">Modelo: {data.metadata?.model || 'N/A'}</p>
-            <p className="text-[#9ca3af]">Proveedor: {data.metadata?.provider || 'N/A'}</p>
+            <p className="text-[#9ca3af]">Modelo: {data.metadata?.model || data.metadata?.llm || 'llama-3.3-70b-versatile'}</p>
+            <p className="text-[#9ca3af]">Proveedor: {data.metadata?.provider || 'Groq'}</p>
             {data.metadata?.search_engine && (
               <p className="text-[#9ca3af]">Búsqueda: {data.metadata.search_engine}</p>
             )}
