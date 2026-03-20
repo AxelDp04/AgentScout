@@ -306,64 +306,25 @@ const LoadingAnimation = () => (
         /^\s*(?:2\.\s*)?(?:\*\*\s*)?Tendencias\s+Clave(?:\s*\*\*)?/i
       ) || resumenFallback;
 
-    const macroText =
+    const inversionText =
       extractByNumberedHeadings(
         sourceText,
-        /^\s*(?:2\.\s*)?(?:\*\*\s*)?Análisis\s+del\s+Macro-entorno(?:\s*\*\*)?/i,
-        /^\s*(?:3\.\s*)?(?:\*\*\s*)?Insights\s+de\s+Mercado(?:\s*\*\*)?/i
-      );
-
-    const insightsText =
-      extractByNumberedHeadings(
-        sourceText,
-        /^\s*(?:3\.\s*)?(?:\*\*\s*)?Insights\s+de\s+Mercado(?:\s*\*\*)?/i,
-        /^\s*(?:4\.\s*)?(?:\*\*\s*)?Oportunidades\s+de\s+Inversi(?:ón)?(?:\s*\*\*)?/i
-      );
-
-    const oportunidadesText =
-      extractByNumberedHeadings(
-        sourceText,
-        /^\s*(?:4\.\s*)?(?:\*\*\s*)?Oportunidades\s+de\s+Inversi(?:ón)?(?:\s*\*\*)?/i,
-        /^\s*(?:5\.\s*)?(?:\*\*\s*)?Análisis\s+de\s+Riesgos(?:\s*\*\*)?/i
-      ) || oportunidadesFallback;
-
-    const riesgosText =
-      extractByNumberedHeadings(
-        sourceText,
-        /^\s*(?:5\.\s*)?(?:\*\*\s*)?Análisis\s+de\s+Riesgos(?:\s*\*\*)?/i,
+        /^\s*(?:2\.\s*)?(?:\*\*\s*)?Análisis\s+de\s+Inversión(?:\s*\*\*)?/i,
         null
-      ) || riesgosFallback;
+      );
 
     const sections = [
       {
         title: 'Impacto Estratégico',
         icon: <Brain className="w-5 h-5" />,
-        content: resumenText || 'No hay resumen disponible',
+        content: resumenText || 'Análisis resumido listo.',
         color: 'from-blue-500 to-purple-600'
       },
       {
-        title: 'Macro-entorno',
-        icon: <Globe className="w-5 h-5" />,
-        content: macroText || 'Analizando tendencias globales...',
-        color: 'from-indigo-500 to-blue-600'
-      },
-      {
-        title: 'Insights de Mercado & Tablas',
+        title: 'Análisis de Inversión',
         icon: <TrendingUp className="w-5 h-5" />,
-        content: insightsText || 'Extrayendo métricas críticas...',
+        content: inversionText || 'Tabla de ROI e inversión disponible.',
         color: 'from-emerald-500 to-teal-600'
-      },
-      {
-        title: 'Oportunidades de Inversión',
-        icon: <Lightbulb className="w-5 h-5" />,
-        content: oportunidadesText || 'Buscando nichos de alta rentabilidad...',
-        color: 'from-yellow-400 to-orange-500'
-      },
-      {
-        title: 'Matriz de Riesgos',
-        icon: <AlertTriangle className="w-5 h-5" />,
-        content: riesgosText || 'Evaluando factores críticos...',
-        color: 'from-red-500 to-orange-600'
       }
     ];
 
