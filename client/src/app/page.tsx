@@ -481,9 +481,10 @@ const LoadingAnimation = () => (
               <img 
                 src="/images/Logo.png" 
                 alt="AgentScout Logo" 
-                className="w-12 h-12 md:w-16 md:h-16 mr-3 md:mr-4 object-contain filter drop-shadow-[0_0_8px_rgba(110,231,183,0.3)]"
+                className="w-12 h-12 md:w-16 md:h-16 mr-3 md:mr-4 object-contain mix-blend-screen mix-blend-mode-lighten filter drop-shadow-[0_0_12px_rgba(110,231,183,0.4)]"
+                style={{ mixBlendMode: 'screen' }}
               />
-              <div className="absolute inset-0 bg-emerald-200 rounded-full opacity-5 blur-xl"></div>
+              <div className="absolute inset-x-0 bottom-0 h-1/2 bg-emerald-400 blur-3xl opacity-10 rounded-full"></div>
             </div>
             <h1 className="text-4xl md:text-6xl font-semibold text-[#ffffff] tracking-wide" style={{ fontFamily: 'Inter, sans-serif', letterSpacing: '0.05em' }}>
               AgentScout
@@ -574,6 +575,7 @@ const LoadingAnimation = () => (
                 src="/images/Logo.png" 
                 alt="Agentes Autónomos" 
                 className="w-10 h-10 mb-4 object-contain opacity-80"
+                style={{ mixBlendMode: 'screen' }}
               />
               <h3 className="text-xl font-semibold mb-2 text-[#ffffff]">Agentes Autónomos</h3>
               <p className="text-[#9ca3af] leading-relaxed">
