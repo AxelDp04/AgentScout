@@ -50,15 +50,17 @@ class ResearchAgent(BaseAgent):
             2. TABLA MINI: Genera una tabla Markdown con EXACTAMENTE 3 FILAS (Inversión, ROI Estimado, Tiempo de Recuperación).
             3. CERO REPETICIÓN: Si lo dijiste en el primer párrafo, no lo pongas en la tabla.
 
-            ESTRUCTURA DEL REPORTE (DEBES RESPONDER EN JSON):
-            {
-                "resumen": "Tu párrafo de análisis estratégico aquí",
-                "tabla": "Tu tabla Markdown de 3 filas aquí",
-                "conclusion": "Tu frase de cierre aquí"
-            }
+            ESTRUCTURA DEL REPORTE (USA ESTOS MARCADORES EXACTOS):
+            [[[RESUMEN]]]
+            (Tu párrafo de análisis estratégico aquí)
             
-            IDIOMA: ESPAÑOL técnico.
-            CERO REPETICIÓN: Lo que pongas en 'resumen' no se repite en 'tabla'."""),
+            [[[TABLA]]]
+            (Tu tabla de 3 filas aquí)
+            
+            [[[CONCLUSION]]]
+            (Tu frase de cierre aquí)
+            
+            IDIOMA: ESPAÑOL técnico."""),
             ("human", "Analiza rápido este mercado: {query}")
         ])
 
@@ -129,44 +131,32 @@ Estoy aquí para ayudarte a descubrir oportunidades, analizar tendencias y tomar
             print("-------------------------------")
             
             # Estructurar los resultados
-            import json
-            import re
-            import json
-            resumen = ""
-            tabla = ""
-            conclusion = ""
-            try:
-                # Buscar el primer bloque que parezca un objeto JSON {...}
-                match = re.search(r'\{.*\}', response.content, re.DOTALL)
-                if match:
-                    clean_json = match.group()
-                    content_json = json.loads(clean_json)
-                    if isinstance(content_json, dict):
-                        # Limpiar los valores de posibles nulos o tipos incorrectos
-                        resumen = str(content_json.get("resumen", ""))
-                        tabla = str(content_json.get("tabla", ""))
-                        conclusion = str(content_json.get("conclusion", ""))
-                    else:
-                        resumen = response.content
-                else:
-                    # Si no hay llaves, tratar como texto plano
-                    resumen = response.content
-            except Exception as e:
-                print(f"Error parseando JSON robusto: {e}")
-                resumen = response.content
-                tabla = ""
-                conclusion = ""
+            # Extracción manual robusta mediante etiquetas [[[ ]]]
+            content = response.content
+            
+            def extract_section(tag_name, text):
+                pattern = f"\\\[\\\[\\\[{tag_name}\\\]\\\]\\\](.*?)(?=\\\[\\\[\\\[|$)"
+                match = re.search(pattern, text, re.DOTALL | re.IGNORECASE)
+                return match.group(1).strip() if match else ""
+
+            resumen = extract_section("RESUMEN", content)
+            tabla = extract_section("TABLA", content)
+            conclusion = extract_section("CONCLUSION", content)
+            
+            # Si la extracción falla totalmente, usar el contenido como resumen
+            if not resumen and not tabla:
+                resumen = content
 
             research_data = {
                 "query": query,
                 "search_results": search_results,
-                "analysis": response.content, # Keep raw analysis for debugging/completeness
+                "analysis": content,
                 "resumen": resumen,
                 "tabla": tabla,
                 "conclusion": conclusion,
                 "timestamp": str(self._get_timestamp()),
                 "agent": self.name,
-                "insights": self._extract_insights(resumen) # Extract insights from the parsed summary
+                "insights": self._extract_insights(resumen if resumen else content)
             }
             
             return AgentResult(
