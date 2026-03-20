@@ -22,10 +22,11 @@ class ResearchAgent(BaseAgent):
         
         if not groq_key:
             raise ValueError("Falta GROQ_API_KEY en las variables de entorno")
-                    # Inicializar el modelo de Groq con Llama 3 70B (Más potente)
+        # Inicializar el modelo de Groq con Llama 3 70B (Más potente)
+        print(f"BOTE: Inicializando ResearchAgent con modelo: llama-3.3-70b-versatile")
         self.llm = ChatGroq(
             model="llama-3.3-70b-versatile",
-            temperature=0.7,
+            temperature=0.1,  # Reducido para máxima precisión y seguimiento de reglas
             groq_api_key=groq_key
         )
         
@@ -35,18 +36,17 @@ class ResearchAgent(BaseAgent):
              
         self.tavily_client = TavilyClient(api_key=tavily_key)
         
-        # Template para el prompt de investigación
-        self.research_prompt = ChatPromptTemplate.from_messages([
             ("system", """Eres un Consultor Senior de Estrategia Inmobiliaria y Análisis de Mercados Emergentes de élite. 
             Tu misión es generar reportes de PROFUNDIDAD ACADÉMICA y VALOR EMPRESARIAL. No acepto respuestas genéricas, superficiales ni repetitivas. 
 
             REGLAS CRÍTICAS DE EJECUCIÓN (EL INCUMPLIMIENTO INVALIDA EL REPORTE):
             1. VOLUMEN DE ANÁLISIS: Cada sección (# y ##) DEBE tener al menos 200 palabras de análisis real. No rellenes con paja; usa proyecciones financieras, demográficas y razonamiento lógico profundo.
-            2. TABLA COMPARATIVA OBLIGATORIA: En la sección 'Insights de Mercado y Tabla Comparativa', DEBES generar una tabla Markdown (usando el formato | Columna |) que compare al menos 4 variables críticas (ej: Precio por m2, Ocupación estimada, Facilidades Confotur, Potencial de Reventa).
+            2. TABLA COMPARATIVA OBLIGATORIA: En la sección 'Insights de Mercado y Tabla Comparativa', DEBES generar una tabla Markdown (usando el formato | Columna |) que compare al menos 4 variables críticas (ej: Precio por m2, Ocupación estimada, Facilidades Confotur, Potencial de Reventa). LA TABLA ES OBLIGATORIA.
             3. COMPARATIVA ESPECÍFICA (Miches vs Las Terrenas): Si la consulta es sobre RD, busca activamente y compara el precio por metro cuadrado y el potencial de plusvalía en Miches frente a Las Terrenas.
             4. PROHIBICIÓN TOTAL DE REPETICIÓN: Se prohíbe repetir oraciones o ideas semánticas entre secciones. Si lo mencionaste en el Resumen, está terminantemente prohibido usar las mismas palabras o enfoques en Oportunidades. Cada sección debe expandir el conocimiento con datos frescos.
             5. SECCIÓN DE RIESGOS SIN CORTESÍA: Prohibido decir 'no hay riesgos'. Debes analizar obligatoriamente: Inflación, Tasas de interés del Banco Central, retrasos burocráticos municipales y costos crecientes de importación de materiales.
             6. ESPECIFICIDAD LOCAL (Confotur/Fideicomiso): Integra obligatoriamente la Ley de Confotur, el impacto de los Fideicomisos y las variaciones salariales del CODIA en el análisis de costos.
+            7. FORMATO ESTRICTO: No uses texto plano aburrido. Usa negritas para datos clave y listas para estructurar, pero manteniendo la densidad de palabras requerida.
 
             ESTRUCTURA DEL REPORTE (FORMATO MARKDOWN PROFESIONAL):
             # 1. Resumen Ejecutivo de Impacto Estratégico
@@ -115,6 +115,13 @@ Estoy aquí para ayudarte a descubrir oportunidades, analizar tendencias y tomar
             
             # Paso 3: Ejecutar el modelo con contexto en tiempo real
             formatted_prompt = self.research_prompt.format_messages(query=context_prompt)
+            
+            print("--- PROMPT ENVIADO A GROQ ---")
+            for msg in formatted_prompt:
+                print(f"Role: {msg.type}")
+                print(f"Content: {msg.content[:500]}...") # Loggeamos solo el inicio para no saturar
+            print("-----------------------------")
+            
             response = await self.llm.ainvoke(formatted_prompt)
             
             # Estructurar los resultados
