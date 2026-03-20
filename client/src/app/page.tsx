@@ -300,37 +300,63 @@ const LoadingAnimation = () => (
         /^\s*(?:2\.\s*)?(?:\*\*\s*)?Tendencias\s+Clave(?:\s*\*\*)?/i
       ) || resumenFallback;
 
+    const macroText =
+      extractByNumberedHeadings(
+        sourceText,
+        /^\s*(?:2\.\s*)?(?:\*\*\s*)?Análisis\s+del\s+Macro-entorno(?:\s*\*\*)?/i,
+        /^\s*(?:3\.\s*)?(?:\*\*\s*)?Insights\s+de\s+Mercado(?:\s*\*\*)?/i
+      );
+
+    const insightsText =
+      extractByNumberedHeadings(
+        sourceText,
+        /^\s*(?:3\.\s*)?(?:\*\*\s*)?Insights\s+de\s+Mercado(?:\s*\*\*)?/i,
+        /^\s*(?:4\.\s*)?(?:\*\*\s*)?Oportunidades\s+de\s+Inversi(?:ón)?(?:\s*\*\*)?/i
+      );
+
     const oportunidadesText =
       extractByNumberedHeadings(
         sourceText,
-        /^\s*(?:3\.\s*)?(?:\*\*\s*)?Oportunidades\s+Identificadas(?:\s*\*\*)?/i,
-        /^\s*(?:4\.\s*)?(?:\*\*\s*)?Riesgos\s+Potenciales(?:\s*\*\*)?/i
+        /^\s*(?:4\.\s*)?(?:\*\*\s*)?Oportunidades\s+de\s+Inversi(?:ón)?(?:\s*\*\*)?/i,
+        /^\s*(?:5\.\s*)?(?:\*\*\s*)?Análisis\s+de\s+Riesgos(?:\s*\*\*)?/i
       ) || oportunidadesFallback;
 
     const riesgosText =
       extractByNumberedHeadings(
         sourceText,
-        /^\s*(?:4\.\s*)?(?:\*\*\s*)?Riesgos\s+Potenciales(?:\s*\*\*)?/i,
-        /^\s*(?:5\.\s*)?(?:\*\*\s*)?Recomendaciones\s+Estrat(?:égicas)?(?:\s*\*\*)?/i
+        /^\s*(?:5\.\s*)?(?:\*\*\s*)?Análisis\s+de\s+Riesgos(?:\s*\*\*)?/i,
+        null
       ) || riesgosFallback;
 
     const sections = [
       {
-        title: 'Resumen Ejecutivo',
+        title: 'Impacto Estratégico',
         icon: <Brain className="w-5 h-5" />,
         content: resumenText || 'No hay resumen disponible',
         color: 'from-blue-500 to-purple-600'
       },
       {
-        title: 'Oportunidades',
-        icon: <Lightbulb className="w-5 h-5" />,
-        content: oportunidadesText || 'No se encontraron oportunidades',
-        color: 'from-green-500 to-teal-600'
+        title: 'Macro-entorno',
+        icon: <Globe className="w-5 h-5" />,
+        content: macroText || 'Analizando tendencias globales...',
+        color: 'from-indigo-500 to-blue-600'
       },
       {
-        title: 'Riesgos',
+        title: 'Insights de Mercado & Tablas',
+        icon: <TrendingUp className="w-5 h-5" />,
+        content: insightsText || 'Extrayendo métricas críticas...',
+        color: 'from-emerald-500 to-teal-600'
+      },
+      {
+        title: 'Oportunidades de Inversión',
+        icon: <Lightbulb className="w-5 h-5" />,
+        content: oportunidadesText || 'Buscando nichos de alta rentabilidad...',
+        color: 'from-yellow-400 to-orange-500'
+      },
+      {
+        title: 'Matriz de Riesgos',
         icon: <AlertTriangle className="w-5 h-5" />,
-        content: riesgosText || 'No se encontraron riesgos',
+        content: riesgosText || 'Evaluando factores críticos...',
         color: 'from-red-500 to-orange-600'
       }
     ];
