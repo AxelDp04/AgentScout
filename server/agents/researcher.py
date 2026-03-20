@@ -50,10 +50,15 @@ class ResearchAgent(BaseAgent):
             2. TABLA MINI: Genera una tabla Markdown con EXACTAMENTE 3 FILAS (Inversión, ROI Estimado, Tiempo de Recuperación).
             3. CERO REPETICIÓN: Si lo dijiste en el primer párrafo, no lo pongas en la tabla.
 
-            ESTRUCTURA DEL REPORTE:
-            1. Análisis Estratégico (Breve y potente)
-            2. Tabla de Inversión (3 filas)
-            3. Conclusión Pro (Una sola frase de impacto)
+            ESTRUCTURA DEL REPORTE (DEBES USAR ESTOS MARCADORES EXACTOS):
+            [[ANÁLISIS ESTRATÉGICO]]
+            (Tu párrafo de análisis aquí)
+            
+            [[TABLA DE INVERSIÓN]]
+            (Tu tabla de 3 filas aquí)
+            
+            [[CONCLUSIÓN PRO]]
+            (Tu frase de cierre aquí)
             
             IDIOMA: ESPAÑOL técnico."""),
             ("human", "Analiza rápido este mercado: {query}")
