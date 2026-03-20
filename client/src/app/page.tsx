@@ -481,9 +481,9 @@ const LoadingAnimation = () => (
               <img 
                 src="/images/logo-no-bg.png" 
                 alt="AgentScout Logo" 
-                className="w-12 h-12 md:w-16 md:h-16 mr-3 md:mr-4 object-contain filter drop-shadow-[0_0_15px_rgba(110,231,183,0.5)]"
+                className="w-20 h-20 md:w-28 md:h-28 mr-3 md:mr-4 object-contain"
               />
-              <div className="absolute inset-x-0 bottom-0 h-1/2 bg-emerald-400 blur-3xl opacity-10 rounded-full"></div>
+              <div className="absolute inset-x-0 bottom-2 h-1/2 bg-emerald-400 blur-[40px] opacity-10 rounded-full"></div>
             </div>
             <h1 className="text-4xl md:text-6xl font-semibold text-[#ffffff] tracking-wide" style={{ fontFamily: 'Inter, sans-serif', letterSpacing: '0.05em' }}>
               AgentScout
