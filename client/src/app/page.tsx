@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { Search, Brain, TrendingUp, Globe, Loader2, CheckCircle, AlertTriangle, Zap, Download, Instagram } from 'lucide-react';
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
@@ -57,7 +57,16 @@ export default function Home() {
   const [loadingStage, setLoadingStage] = useState('');
   const [result, setResult] = useState<ResearchResult | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const resultsRef = useRef<HTMLDivElement>(null);
 
+  // Auto-scroll a los resultados cuando terminan de cargar
+  useEffect(() => {
+    if (result && !isLoading && resultsRef.current) {
+      setTimeout(() => {
+        resultsRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 100);
+    }
+  }, [result, isLoading]);
 
   const downloadPDF = async () => {
     if (!result) return;
@@ -344,7 +353,7 @@ const LoadingAnimation = () => (
   };
 
   return (
-    <div className="min-h-screen relative overflow-hidden font-sans antialiased" style={{ backgroundColor: '#0b0e14' }}>
+    <div className="min-h-[100dvh] relative overflow-hidden font-sans antialiased" style={{ backgroundColor: '#0b0e14' }}>
       {/* Fondo negro sólido */}
       <div className="fixed inset-0 pointer-events-none">
         <div className="absolute inset-0 bg-[#0b0e14]" />
@@ -407,7 +416,7 @@ const LoadingAnimation = () => (
         </div>
 
         {/* Estados de carga y resultados */}
-        <div className="max-w-4xl mx-auto">
+        <div className="max-w-4xl mx-auto" ref={resultsRef}>
           {isLoading && <LoadingAnimation />}
           
           {error && (
